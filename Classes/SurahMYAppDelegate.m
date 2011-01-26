@@ -8,20 +8,68 @@
 
 #import "SurahMYAppDelegate.h"
 #import "MainViewController.h"
+#import "Surah.h"
 
 @implementation SurahMYAppDelegate
 
-@synthesize window, mainViewController;
+@synthesize window, mainViewController, surahs;
 
 
 #pragma mark -
 #pragma mark Application lifecycle
 
+// Create a new connection to the database.
+- (void) newDatabaseConnection {
+	BOOL success;
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	success = [fileManager fileExistsAtPath:dbPath];
+	
+	if(success) return;
+	
+	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:dbName];
+	
+	[fileManager copyItemAtPath:databasePathFromApp toPath:dbPath error:nil];
+	[fileManager release];
+}
+
+// Read and store repeaters from the database.
+- (void) readSurahs {
+	sqlite3 *database;
+	
+	surahs = [[NSMutableArray alloc] init];
+	
+	if(sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+		NSString *sqlStr = [NSString stringWithFormat:@"select * from surahs"];
+		const char *sqlStatement = [sqlStr UTF8String];
+		sqlite3_stmt *compiledStatement;
+		
+		if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+				NSString *sTitle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+				Surah *s = [[Surah alloc] initWithTitle:sTitle];
+				[surahs addObject:s];
+				[s release];
+			}
+		}
+		// Release the compiled statement from memory
+		sqlite3_finalize(compiledStatement);
+	}
+	sqlite3_close(database);
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
-    // Override point for customization after application launch.
-    
-    [self.window makeKeyAndVisible];
+    dbName = @"alquran_db.sqlite";
+	
+	NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDir = [documentPaths objectAtIndex:0];
+	dbPath = [documentsDir stringByAppendingPathComponent:dbName];
+	
+	[self newDatabaseConnection];    
+	[self readSurahs];
+	
+	[self.window makeKeyAndVisible];
 	[self.window addSubview:mainViewController.view];
     return YES;
 }
@@ -78,6 +126,7 @@
 - (void)dealloc {
     [window release];
 	[mainViewController release];
+	[surahs release];
     [super dealloc];
 }
 

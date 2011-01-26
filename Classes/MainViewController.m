@@ -7,7 +7,8 @@
 //
 
 #import "MainViewController.h"
-
+#import "SurahMYAppDelegate.h"
+#import "Surah.h"
 
 @implementation MainViewController
 
@@ -32,6 +33,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"Surah";
+	
+	tableData = [[NSMutableArray alloc] init];
+	
+	SurahMYAppDelegate *appDelegate = (SurahMYAppDelegate *)[[UIApplication sharedApplication] delegate];
+	tableData = appDelegate.surahs;
 }
 
 /*
@@ -41,6 +47,36 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+#pragma mark -
+#pragma mark Table view data source
+
+// The number of sections in the table view.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 1;
+}
+
+// The number of rows in a given specific section of the table view.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [tableData count];
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    // Set up the cell
+	Surah *s = (Surah *)[tableData objectAtIndex:indexPath.row];
+	cell.textLabel.text = [s.title capitalizedString];
+	
+    return cell;
+}
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

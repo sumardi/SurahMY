@@ -10,7 +10,7 @@
 
 
 @interface MainViewController : UITableViewController {
-
+	NSMutableArray *tableData;
 }
 
 @end
