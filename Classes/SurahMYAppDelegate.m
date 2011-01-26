@@ -7,10 +7,11 @@
 //
 
 #import "SurahMYAppDelegate.h"
+#import "MainViewController.h"
 
 @implementation SurahMYAppDelegate
 
-@synthesize window;
+@synthesize window, mainViewController;
 
 
 #pragma mark -
@@ -21,7 +22,7 @@
     // Override point for customization after application launch.
     
     [self.window makeKeyAndVisible];
-    
+	[self.window addSubview:mainViewController.view];
     return YES;
 }
 
@@ -76,6 +77,7 @@
 
 - (void)dealloc {
     [window release];
+	[mainViewController release];
     [super dealloc];
 }
 

@@ -10,9 +10,11 @@
 
 @interface SurahMYAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
+	UINavigationController *mainViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet UINavigationController *mainViewController;
 
 @end
 
