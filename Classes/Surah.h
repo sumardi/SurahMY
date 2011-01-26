@@ -10,11 +10,13 @@
 
 
 @interface Surah : NSObject {
+	NSNumber *index;
 	NSString *title;
 }
 
+@property (nonatomic, retain) NSNumber *index;
 @property (nonatomic, retain) NSString *title;
 
--(id)initWithTitle:(NSString *)t;
+-(id)initWithIndex:(NSNumber *)i title:(NSString *)t;
 
 @end

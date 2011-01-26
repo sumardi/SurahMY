@@ -313,6 +313,8 @@
 		9F15ACC812F08B5400EDD191 /* s002_a286.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F15ABA312F08B5400EDD191 /* s002_a286.png */; };
 		9F15ACD212F0924700EDD191 /* Surah.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15ACD112F0924700EDD191 /* Surah.m */; };
 		9F15ACDE12F0939E00EDD191 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F15ACDD12F0939E00EDD191 /* libsqlite3.dylib */; };
+		9F15AD4212F0990C00EDD191 /* SurahViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15AD4112F0990C00EDD191 /* SurahViewController.m */; };
+		9F15AD4412F0993000EDD191 /* SurahView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F15AD4312F0993000EDD191 /* SurahView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -628,6 +630,9 @@
 		9F15ACD012F0924700EDD191 /* Surah.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Surah.h; sourceTree = "<group>"; };
 		9F15ACD112F0924700EDD191 /* Surah.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Surah.m; sourceTree = "<group>"; };
 		9F15ACDD12F0939E00EDD191 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9F15AD4012F0990C00EDD191 /* SurahViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurahViewController.h; sourceTree = "<group>"; };
+		9F15AD4112F0990C00EDD191 /* SurahViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurahViewController.m; sourceTree = "<group>"; };
+		9F15AD4312F0993000EDD191 /* SurahView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurahView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,6 +659,8 @@
 				9F15A75E12F0796800EDD191 /* MainViewController.m */,
 				9F15ACD012F0924700EDD191 /* Surah.h */,
 				9F15ACD112F0924700EDD191 /* Surah.m */,
+				9F15AD4012F0990C00EDD191 /* SurahViewController.h */,
+				9F15AD4112F0990C00EDD191 /* SurahViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -714,6 +721,7 @@
 			children = (
 				9F15A4F812F0724600EDD191 /* MainWindow.xib */,
 				9F15A79612F07CB100EDD191 /* SurahListView.xib */,
+				9F15AD4312F0993000EDD191 /* SurahView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1393,6 +1401,7 @@
 				9F15ACC612F08B5400EDD191 /* s002_a284.png in Resources */,
 				9F15ACC712F08B5400EDD191 /* s002_a285.png in Resources */,
 				9F15ACC812F08B5400EDD191 /* s002_a286.png in Resources */,
+				9F15AD4412F0993000EDD191 /* SurahView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1407,6 +1416,7 @@
 				1D3623260D0F684500981E51 /* SurahMYAppDelegate.m in Sources */,
 				9F15A75F12F0796800EDD191 /* MainViewController.m in Sources */,
 				9F15ACD212F0924700EDD191 /* Surah.m in Sources */,
+				9F15AD4212F0990C00EDD191 /* SurahViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

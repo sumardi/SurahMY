@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "SurahMYAppDelegate.h"
 #import "Surah.h"
+#import "SurahViewController.h"
 
 @implementation MainViewController
 
@@ -74,9 +75,25 @@
     // Set up the cell
 	Surah *s = (Surah *)[tableData objectAtIndex:indexPath.row];
 	cell.textLabel.text = [s.title capitalizedString];
-	
     return cell;
 }
+
+#pragma mark -
+#pragma mark Table view delegate
+
+// Tells the delegate that the specified row is now selected.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	SurahViewController *surahView = [[SurahViewController alloc] initWithNibName:@"SurahView" bundle:nil];
+	surahView.title = [(Surah *)[tableData objectAtIndex:indexPath.row] title];
+	surahView.selectedSurahIndex = [(Surah *)[tableData objectAtIndex:indexPath.row] index];
+	
+	// Create and push MemberDetails view controller.
+	SurahMYAppDelegate *appDelegate = (SurahMYAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate.mainViewController pushViewController:surahView animated:YES];
+	[surahView release];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -87,12 +104,12 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    tableData = nil;
 }
 
 
 - (void)dealloc {
+	[tableData release];
     [super dealloc];
 }
 

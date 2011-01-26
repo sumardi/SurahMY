@@ -11,9 +11,10 @@
 
 @implementation Surah
 
-@synthesize title;
+@synthesize title, index;
 
--(id)initWithTitle:(NSString *)t {
+-(id)initWithIndex:(NSNumber *)i title:(NSString *)t {
+	self.index = i;
 	self.title = t;
 	return self;
 }

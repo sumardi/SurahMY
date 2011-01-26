@@ -46,8 +46,9 @@
 		
 		if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
 			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+				NSNumber *sIndex = [NSNumber numberWithInt:sqlite3_column_int(compiledStatement, 1)];
 				NSString *sTitle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
-				Surah *s = [[Surah alloc] initWithTitle:sTitle];
+				Surah *s = [[Surah alloc] initWithIndex:sIndex title:sTitle];
 				[surahs addObject:s];
 				[s release];
 			}
