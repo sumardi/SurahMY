@@ -315,6 +315,7 @@
 		9F15ACDE12F0939E00EDD191 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F15ACDD12F0939E00EDD191 /* libsqlite3.dylib */; };
 		9F15AD4212F0990C00EDD191 /* SurahViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15AD4112F0990C00EDD191 /* SurahViewController.m */; };
 		9F15AD4412F0993000EDD191 /* SurahView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F15AD4312F0993000EDD191 /* SurahView.xib */; };
+		9F15AD9A12F0A28300EDD191 /* Ayat.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15AD9912F0A28300EDD191 /* Ayat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -633,6 +634,8 @@
 		9F15AD4012F0990C00EDD191 /* SurahViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurahViewController.h; sourceTree = "<group>"; };
 		9F15AD4112F0990C00EDD191 /* SurahViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurahViewController.m; sourceTree = "<group>"; };
 		9F15AD4312F0993000EDD191 /* SurahView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurahView.xib; sourceTree = "<group>"; };
+		9F15AD9812F0A28300EDD191 /* Ayat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ayat.h; sourceTree = "<group>"; };
+		9F15AD9912F0A28300EDD191 /* Ayat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ayat.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -661,6 +664,8 @@
 				9F15ACD112F0924700EDD191 /* Surah.m */,
 				9F15AD4012F0990C00EDD191 /* SurahViewController.h */,
 				9F15AD4112F0990C00EDD191 /* SurahViewController.m */,
+				9F15AD9812F0A28300EDD191 /* Ayat.h */,
+				9F15AD9912F0A28300EDD191 /* Ayat.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1417,6 +1422,7 @@
 				9F15A75F12F0796800EDD191 /* MainViewController.m in Sources */,
 				9F15ACD212F0924700EDD191 /* Surah.m in Sources */,
 				9F15AD4212F0990C00EDD191 /* SurahViewController.m in Sources */,
+				9F15AD9A12F0A28300EDD191 /* Ayat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

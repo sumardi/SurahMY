@@ -85,10 +85,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	SurahViewController *surahView = [[SurahViewController alloc] initWithNibName:@"SurahView" bundle:nil];
 	surahView.title = [(Surah *)[tableData objectAtIndex:indexPath.row] title];
-	surahView.selectedSurahIndex = [(Surah *)[tableData objectAtIndex:indexPath.row] index];
+	NSNumber *selectedSurahIndex = [(Surah *)[tableData objectAtIndex:indexPath.row] index];
 	
-	// Create and push MemberDetails view controller.
 	SurahMYAppDelegate *appDelegate = (SurahMYAppDelegate *)[[UIApplication sharedApplication] delegate];
+	NSPredicate *predExists = [NSPredicate predicateWithFormat:@"(%K ==[c] %@)",  @"surahIndex", selectedSurahIndex];
+	NSArray *filteredArray = [appDelegate.ayats filteredArrayUsingPredicate:predExists];
+	surahView.tableData = [filteredArray mutableCopy];
+	
 	[appDelegate.mainViewController pushViewController:surahView animated:YES];
 	[surahView release];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];

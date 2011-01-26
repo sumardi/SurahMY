@@ -7,11 +7,11 @@
 //
 
 #import "SurahViewController.h"
-
+#import "Ayat.h"
 
 @implementation SurahViewController
 
-@synthesize selectedSurahIndex;
+@synthesize tableData;
 
 #pragma mark -
 #pragma mark Initialization
@@ -33,7 +33,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	NSLog(@"%@", selectedSurahIndex);
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -78,7 +77,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+    return [tableData count];
 }
 
 
@@ -92,9 +91,10 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Configure the cell...
-    
-    return cell;
+    // Set up the cell
+	Ayat *a = (Ayat *)[tableData objectAtIndex:indexPath.row];
+	cell.textLabel.text = [a.title capitalizedString];    
+	return cell;
 }
 
 
@@ -164,13 +164,12 @@
 }
 
 - (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
+    tableData = nil;
 }
 
 
 - (void)dealloc {
-	[selectedSurahIndex release];
+	[tableData release];
     [super dealloc];
 }
 

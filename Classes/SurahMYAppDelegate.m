@@ -9,10 +9,11 @@
 #import "SurahMYAppDelegate.h"
 #import "MainViewController.h"
 #import "Surah.h"
+#import "Ayat.h"
 
 @implementation SurahMYAppDelegate
 
-@synthesize window, mainViewController, surahs;
+@synthesize window, mainViewController, surahs, ayats;
 
 
 #pragma mark -
@@ -33,7 +34,7 @@
 	[fileManager release];
 }
 
-// Read and store repeaters from the database.
+// Read and store surah from the database.
 - (void) readSurahs {
 	sqlite3 *database;
 	
@@ -59,6 +60,36 @@
 	sqlite3_close(database);
 }
 
+// Read and store ayat from the database.
+- (void) readAyats {
+	sqlite3 *database;
+	
+	ayats = [[NSMutableArray alloc] init];
+	
+	if(sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+		NSString *sqlStr = [NSString stringWithFormat:@"select * from ayats"];
+		const char *sqlStatement = [sqlStr UTF8String];
+		sqlite3_stmt *compiledStatement;
+		
+		if(sqlite3_prepare_v2(database, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+			while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+				NSNumber *aIndex = [NSNumber numberWithInt:sqlite3_column_int(compiledStatement, 0)];
+				NSNumber *aSurahIndex = [NSNumber numberWithInt:sqlite3_column_int(compiledStatement, 1)];
+				NSString *aFolder = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
+				NSString *aTitle = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 4)];
+				NSString *aTitleEng = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 5)];
+				NSString *aImage = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 6)];
+				Ayat *a = [[Ayat alloc] initWithIndex:aIndex surah:aSurahIndex folder:aFolder title:aTitle eng:aTitleEng image:aImage];
+				[ayats addObject:a];
+				[a release];
+			}
+		}
+		// Release the compiled statement from memory
+		sqlite3_finalize(compiledStatement);
+	}
+	sqlite3_close(database);
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     dbName = @"alquran_db.sqlite";
@@ -69,6 +100,7 @@
 	
 	[self newDatabaseConnection];    
 	[self readSurahs];
+	[self readAyats];
 	
 	[self.window makeKeyAndVisible];
 	[self.window addSubview:mainViewController.view];
@@ -128,6 +160,7 @@
     [window release];
 	[mainViewController release];
 	[surahs release];
+	[ayats release];
     [super dealloc];
 }
 

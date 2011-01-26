@@ -13,6 +13,7 @@
     UIWindow *window;
 	UINavigationController *mainViewController;
 	NSMutableArray *surahs;
+	NSMutableArray *ayats;
 	
 	// Database variables
 	NSString *dbName;
@@ -22,6 +23,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *mainViewController;
 @property (nonatomic, retain) NSMutableArray *surahs;
+@property (nonatomic, retain) NSMutableArray *ayats;
 
 @end
 

@@ -10,9 +10,9 @@
 
 
 @interface SurahViewController : UITableViewController {
-	NSNumber *selectedSurahIndex;
+	NSMutableArray *tableData;
 }
 
-@property (nonatomic, retain) NSNumber *selectedSurahIndex;
+@property (nonatomic, retain) NSMutableArray *tableData;
 
 @end
