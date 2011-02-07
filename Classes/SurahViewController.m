@@ -33,6 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
+																	style:UIBarButtonSystemItemDone target:nil action:nil];
+	UIImage *btnImage = [UIImage imageNamed:@"mic_ico.png"];
+	//[rightButton setImage:btnImage forState:UIControlStateNormal];
+	rightButton.image = btnImage;
+	self.navigationItem.rightBarButtonItem = rightButton;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -80,20 +87,97 @@
     return [tableData count];
 }
 
+- (UIImage *)scaleImage:(UIImage *) image maxWidth:(float) maxWidth maxHeight:(float) maxHeight
+{
+	CGImageRef imgRef = image.CGImage;
+	CGFloat width = CGImageGetWidth(imgRef);
+	CGFloat height = CGImageGetHeight(imgRef);
+	
+	if (width <= maxWidth && height <= maxHeight)
+	{
+		return image;
+	}
+	
+	CGAffineTransform transform = CGAffineTransformIdentity;
+	CGRect bounds = CGRectMake(10, 10, width, height);
+	
+	if (width > maxWidth || height > maxHeight)
+	{
+		CGFloat ratio = width/height;
+		
+		if (ratio > 1)
+		{
+			bounds.size.width = maxWidth;
+			bounds.size.height = bounds.size.width / ratio;
+		}
+		else
+		{
+			bounds.size.height = maxHeight;
+			bounds.size.width = bounds.size.height * ratio;
+		}
+	}
+	
+	CGFloat scaleRatio = bounds.size.width / width;
+	UIGraphicsBeginImageContext(bounds.size);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextScaleCTM(context, scaleRatio, -scaleRatio);
+	CGContextTranslateCTM(context, 0, -height);
+	CGContextConcatCTM(context, transform);
+	CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height), imgRef);
+	
+	UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	return imageCopy;
+	
+}
+
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+	Ayat *a = (Ayat *)[tableData objectAtIndex:indexPath.row];
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
+	
+	//UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",a.folder,a.image]];
+	//NSLog(@"%@", img.size.width);
+	UIImage *img = [self scaleImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",a.folder,a.image]] maxWidth:310 maxHeight:500];
+	
+	UIImageView *image = [[UIImageView alloc] initWithImage:img];
+	image.contentMode = UIViewContentModeScaleAspectFill;
+	
+	
+	CGRect CellFrame = CGRectMake(0, 0, 320, img.size.height);
+	
+    //if (cell == nil) {
+//		UIImageView *imageView = nil;
+//		UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",a.folder,a.image]];
+		
+		cell = [[[UITableViewCell alloc] initWithFrame:CellFrame reuseIdentifier:CellIdentifier] autorelease];
+		cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+		cell.textLabel.numberOfLines = 0;
+		cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
+	
+//		imageView = [[UIImageView alloc] initWithImage:img];
+//		imageView.contentMode = UIViewContentModeScaleAspectFit;
+		//cell.backgroundColor = [UIColor redColor];
+		//cell.backgroundView = imageView;
+		//imageView.frame = CGRectMake(10, 10, 390, 40);
+		//cell.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+	//imageView.frame = CGRectMake(10, 8, 290, 40);
+		[cell.contentView addSubview:image];
+	//[cell.contentView addSubview:txt];
+	//txt.text = a.title;
+//		[imageView release];
+//		[img release];
+	//}
+//    cell.textLabel.textAlignment = UITextAlignmentRight;
     // Set up the cell
-	Ayat *a = (Ayat *)[tableData objectAtIndex:indexPath.row];
 	cell.textLabel.text = [a.title capitalizedString];    
+	//tableView.opaque = NO;
+	cell.textLabel.backgroundColor = [UIColor clearColor];
+	tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	return cell;
 }
 
@@ -150,6 +234,18 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
     */
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	Ayat *a = (Ayat *)[tableData objectAtIndex:indexPath.row];
+	UIImage *img = [self scaleImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_%@",a.folder,a.image]] maxWidth:310 maxHeight:500];
+	
+	NSString *cellText = a.title;
+    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:13.0];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT); 
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+	
+    return labelSize.height + (img.size.height * 2);
 }
 
 

@@ -316,6 +316,7 @@
 		9F15AD4212F0990C00EDD191 /* SurahViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15AD4112F0990C00EDD191 /* SurahViewController.m */; };
 		9F15AD4412F0993000EDD191 /* SurahView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F15AD4312F0993000EDD191 /* SurahView.xib */; };
 		9F15AD9A12F0A28300EDD191 /* Ayat.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F15AD9912F0A28300EDD191 /* Ayat.m */; };
+		9F15AFF812F0E01600EDD191 /* mic_ico.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F15AFF712F0E01600EDD191 /* mic_ico.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -636,6 +637,7 @@
 		9F15AD4312F0993000EDD191 /* SurahView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SurahView.xib; sourceTree = "<group>"; };
 		9F15AD9812F0A28300EDD191 /* Ayat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ayat.h; sourceTree = "<group>"; };
 		9F15AD9912F0A28300EDD191 /* Ayat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ayat.m; sourceTree = "<group>"; };
+		9F15AFF712F0E01600EDD191 /* mic_ico.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mic_ico.png; path = Images/mic_ico.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -734,6 +736,7 @@
 		9F15A4FA12F0727100EDD191 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9F15AFF712F0E01600EDD191 /* mic_ico.png */,
 				9F15AA7D12F08B5400EDD191 /* s001 */,
 				9F15AA8512F08B5400EDD191 /* s002 */,
 				9F15A75612F076F900EDD191 /* bismillah.png */,
@@ -1407,6 +1410,7 @@
 				9F15ACC712F08B5400EDD191 /* s002_a285.png in Resources */,
 				9F15ACC812F08B5400EDD191 /* s002_a286.png in Resources */,
 				9F15AD4412F0993000EDD191 /* SurahView.xib in Resources */,
+				9F15AFF812F0E01600EDD191 /* mic_ico.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
